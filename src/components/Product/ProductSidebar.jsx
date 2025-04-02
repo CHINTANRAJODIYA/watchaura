@@ -11,6 +11,7 @@ import { LuBox } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCart } from "../../context/CartProvider";
+import { MdCategory } from "react-icons/md";
 
 function ProductSidebar() {
   const { currentUser } = useSelector((state) => state.user);
@@ -20,6 +21,18 @@ function ProductSidebar() {
   return (
     <Sidebar className="w-full md:w-56" color="blue">
       <SidebarItemGroup className="flex flex-col gap-1">
+        {currentUser && currentUser.isAdmin === true && (
+          <Link to="/product?tab=categories">
+            <SidebarItem
+              as="div"
+              label="Admin"
+              labelColor="dark"
+              icon={MdCategory}
+            >
+              Manage Categories
+            </SidebarItem>
+          </Link>
+        )}
         {currentUser && currentUser.isAdmin === true && (
           <Link to="/createproduct">
             <SidebarItem

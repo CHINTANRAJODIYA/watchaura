@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import ProductSidebar from "../components/Product/ProductSidebar";
 import ProductCardContainer from "../components/Product/ProductCardContainer";
-import CreateProduct from "../components/admin/CreateProduct";
-import AllUser from "../components/admin/AllUsers";
+import UserProfile from "../components/UserProfile";
+import { useLocation } from "react-router-dom";
+import ShampooConyainer from "../components/Product/ShampooConyainer";
+import AllUsers from "../components/admin/AllUsers";
+import OrderContainer from "../components/admin/OrderContainer";
 import UserOrderPage from "../components/user/UserOrderPage";
-import Profile from "../components/UserProfile/";
 import CategoryContainer from "../components/Product/CategoryContainer";
+import CategoryManager from "../components/admin/CategoryManager";
 
 function Product() {
   const location = useLocation();
-  const navigate = useNavigate();
-  const [tab, setTab] = useState("allproduct");
+  const [tab, setTab] = useState("");
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -21,25 +22,18 @@ function Product() {
     }
   }, [location.search]);
 
-  const handleTabChange = (tab) => {
-    setTab(tab);
-    navigate(`/product?tab=${tab}`);
-  };
-
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="p-3 md:w-56">
+    <div className="min-h-screen flex flex-col md:flex-row">
+      <div className="md:w-56">
         <ProductSidebar />
       </div>
-      <div className="md:flex-1">
+      <div className="flex-1">
         {tab === "allproduct" && <ProductCardContainer />}
-        {tab === "createproduct" && <CreateProduct />}
-        {tab === "allusers" && <AllUser />}
-        {tab === "allorders" && <OrderList />}
+        {tab === "profile" && <UserProfile />}
         {tab === "yourorder" && <UserOrderPage />}
-        {tab === "profile" && <Profile />}
         {tab === "categories" && <CategoryManager />}
-        {tab === "category" && <CategoryContainer />}
+        {tab === "allusers" && <AllUsers />}
+        {tab === "allorders" && <OrderContainer />}
       </div>
     </div>
   );
